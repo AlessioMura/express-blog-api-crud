@@ -28,8 +28,17 @@ const show = (req, res) => {
     })
 }
 
+const create = (req, res) => {
+    console.log(req.body);
+    
+    res.json({
+        body: req.body
+    })
+}
+
 
 module.exports = {
     index,
-    show
+    show,
+    create
 }

@@ -29,7 +29,21 @@ const show = (req, res) => {
 }
 
 const create = (req, res) => {
-    console.log(req.body);
+    const post = {
+        title: req.body.title,
+        slug: req.body.slug,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    };
+    
+    posts.push(post);
+
+    return res.status(201).json({
+        status: 201,
+        data: posts,
+        count: posts.length
+    })
     
     res.json({
         body: req.body

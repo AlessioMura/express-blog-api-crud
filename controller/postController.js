@@ -8,7 +8,7 @@ const index = (req, res) => {
         const { title, content, image, slug, tags } = post;
 
         return html +=
-        `
+            `
         <li>
             <h3>${title}</h3>
             <span>[${slug}]</span>
@@ -37,7 +37,7 @@ const create = (req, res) => {
         image: req.body.image,
         tags: req.body.tags
     };
-    
+
     posts.push(post);
     fs.writeFileSync('./db/db.js', `module.exports = ${JSON.stringify(posts, null, 4)}`)
 
@@ -46,12 +46,30 @@ const create = (req, res) => {
         data: posts,
         count: posts.length
     })
-    
+
+}
+
+const update = (req, res) => {
+    // find the pizza by id
+
+
+    // check if the user is updating the correct pizza
+
+
+    // update the pizza object
+
+
+    // update the js file
+
+
+    // return the updated menu item
 }
 
 
-module.exports = {
-    index,
-    show,
-    create
-}
+
+    module.exports = {
+        index,
+        show,
+        create,
+        update
+    }

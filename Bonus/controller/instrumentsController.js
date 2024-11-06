@@ -7,6 +7,25 @@ const index = (req, res) => {
     });
 };
 
+const show = (req, res) => {
+    const singleInstrument = instruments.find((instrument) => instrument.id === Number(req.params.id));
+    console.log(req.params);
+    
+
+    if (!singleInstrument) {
+        return res.status(404).json({
+            error: 'Instrument not found'
+        });
+    }
+
+    return res.json({
+        data: singleInstrument
+    })
+
+}
+
+
 module.exports = {
-    index
+    index,
+    show
 }

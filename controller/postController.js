@@ -51,23 +51,23 @@ const create = (req, res) => {
 }
 
 const update = (req, res) => {
-    // find the pizza by id
+    // find the post by id
     const singlePost = posts.find(post => post.slug === req.params.slug);
 
 
-    // check if the user is updating the correct pizza
+    // check if the user is updating the correct post
     if (!singlePost) {
         return res.status(404).json({ error: 'Post not found' })
     }
 
 
-    // update the pizza object
+    // update the post object
     post.title = req.body.title;
     post.slug = req.body.slug;
     post.content = req.body.content;
     post.image = req.body.image;
     post.tags = req.body.tags;
-    
+
 
     // update the js file
     fs.writeFileSync('./db/db.js', `module.exports = ${JSON.stringify(posts, null, 4)}`)
@@ -81,11 +81,28 @@ const update = (req, res) => {
     })
 }
 
+const destroy = (req, res) => {
+    // find the post by id
 
 
-    module.exports = {
-        index,
-        show,
-        create,
-        update
-    }
+  // check if the user is updating the correct post
+
+
+  // remove the post from the menu
+
+  
+  // update the js file
+
+
+  // return the updated menu item
+
+}
+
+
+
+module.exports = {
+    index,
+    show,
+    create,
+    update
+}

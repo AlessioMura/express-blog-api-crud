@@ -6,6 +6,6 @@ router.get('/', instrumentsController.index);
 
 router.get('/:id', instrumentsController.show)
 
-router.post('/', instrumentsController.create)
+router.post('/', instrumentsController.store)
 
 module.exports = router;

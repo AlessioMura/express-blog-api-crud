@@ -1,4 +1,5 @@
 const instruments = require('../db/instrumentsData.js');
+const fs = require('fs');
 
 const index = (req, res) => {
     res.json({
@@ -27,12 +28,20 @@ const show = (req, res) => {
 const store = (req, res) => {
     const instrument = {
         id: instruments[instruments.length - 1].id + 1,
-        name: req.body.name,
+        nome: req.body.nome,
         marca: req.body.marca,
-        price: req.body.price,
+        prezzo: req.body.prezzo,
     }
 
     instruments.push(instrument);
+
+    fs.writeFileSync('./db/instrumentsData.js', `module.exports = ${JSON.stringify(instruments)}`)
+
+    return res.status(201).json({
+        status: 201,
+        data: instruments,
+        counter: instruments.length
+    });
 }
 
 

@@ -10,4 +10,6 @@ router.post('/', instrumentsController.store)
 
 router.put('/:id', instrumentsController.update)
 
+router.delete('/:id', instrumentsController.destroy)
+
 module.exports = router;

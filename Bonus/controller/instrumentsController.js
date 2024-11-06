@@ -68,9 +68,28 @@ const update = (req, res) => {
 
 }
 
+const destroy = (req, res) => {
+    const singleInstrument = instruments.find((instrument) => instrument.id === Number(req.params.id))
+
+    if (!singleInstrument) {
+        return res.status(404).json({ error: 'Instrument not found' });
+    }
+
+    const newInstruments = instruments.filter((instrument) => instrument.id !== Number(req.params.id));
+
+    fs.writeFileSync('./db/instrumentsData.js', `module.exports = ${JSON.stringify(newInstruments, null, 4)}`)
+
+res.status(201).json({
+    status: 201,
+    data: newInstruments
+    });
+
+}
+
 module.exports = {
     index,
     show,
     store,
-    update
+    update,
+    destroy
 }

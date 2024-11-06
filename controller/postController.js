@@ -60,13 +60,25 @@ const update = (req, res) => {
         return res.status(404).json({ error: 'Post not found' })
     }
 
-    // update the pizza object
 
+    // update the pizza object
+    post.title = req.body.title;
+    post.slug = req.body.slug;
+    post.content = req.body.content;
+    post.image = req.body.image;
+    post.tags = req.body.tags;
+    
 
     // update the js file
+    fs.writeFileSync('./db/db.js', `module.exports = ${JSON.stringify(posts, null, 4)}`)
 
 
     // return the updated menu item
+    res.status(201).json({
+        status: 201,
+        data: post,
+        counter: posts.length
+    })
 }
 
 

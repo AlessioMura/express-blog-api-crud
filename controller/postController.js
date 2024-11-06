@@ -1,3 +1,4 @@
+const { error } = require('console');
 const posts = require('../db/db.js')
 const fs = require('fs')
 
@@ -51,10 +52,13 @@ const create = (req, res) => {
 
 const update = (req, res) => {
     // find the pizza by id
+    const singlePost = posts.find(post => post.slug === req.params.slug);
 
 
     // check if the user is updating the correct pizza
-
+    if (!singlePost) {
+        return res.status(404).json({ error: 'Post not found' })
+    }
 
     // update the pizza object
 

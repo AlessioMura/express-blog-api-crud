@@ -51,7 +51,7 @@ const create = (req, res) => {
 }
 
 const update = (req, res) => {
-    // find the post by id
+    // find the post by slug
     const singlePost = posts.find(post => post.slug === req.params.slug);
 
 
@@ -73,7 +73,7 @@ const update = (req, res) => {
     fs.writeFileSync('./db/db.js', `module.exports = ${JSON.stringify(posts, null, 4)}`)
 
 
-    // return the updated menu item
+    // return the updated postList item
     res.status(201).json({
         status: 201,
         data: post,
@@ -82,20 +82,26 @@ const update = (req, res) => {
 }
 
 const destroy = (req, res) => {
-    // find the post by id
+    // find the post by slug
+    const singlePost = posts.find(post => post.slug === req.params.slug);
+
+    // check if the user is deleting the correct post
+    if (!singlePost) {
+        return res.status(404).json({ error: 'Post not found' })
+    }
 
 
-  // check if the user is updating the correct post
+    // remove the post from the postList
+    const newPosts = posts.filter(post => post.slug !== req.params.slug);
 
+    // update the js file
+    fs.writeFileSync('./db/db.js', `module.exports = ${JSON.stringify(newPosts, null, 4)}`)
 
-  // remove the post from the menu
-
-  
-  // update the js file
-
-
-  // return the updated menu item
-
+    // return the updated postList item
+    res.status(201).json({
+        status: 201,
+        data: newPosts
+    })
 }
 
 
@@ -104,5 +110,6 @@ module.exports = {
     index,
     show,
     create,
-    update
+    update,
+    destroy
 }

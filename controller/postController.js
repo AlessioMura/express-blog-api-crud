@@ -62,11 +62,11 @@ const update = (req, res) => {
 
 
     // update the post object
-    post.title = req.body.title;
-    post.slug = req.body.slug;
-    post.content = req.body.content;
-    post.image = req.body.image;
-    post.tags = req.body.tags;
+    posts.title = req.body.title;
+    posts.slug = req.body.slug;
+    posts.content = req.body.content;
+    posts.image = req.body.image;
+    posts.tags = req.body.tags;
 
 
     // update the js file
@@ -76,7 +76,7 @@ const update = (req, res) => {
     // return the updated postList item
     res.status(201).json({
         status: 201,
-        data: post,
+        data: posts,
         counter: posts.length
     })
 }

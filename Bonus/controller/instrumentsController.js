@@ -35,7 +35,7 @@ const store = (req, res) => {
 
     instruments.push(instrument);
 
-    fs.writeFileSync('./db/instrumentsData.js', `module.exports = ${JSON.stringify(instruments)}`)
+    fs.writeFileSync('./db/instrumentsData.js', `module.exports = ${JSON.stringify(instruments, null, 4)}`)
 
     return res.status(201).json({
         status: 201,
@@ -44,9 +44,33 @@ const store = (req, res) => {
     });
 }
 
+const update = (req, res) => {
+    const singleInstrument = instruments.find((instrument) => instrument.id === Number(req.params.id))
+
+    if (!singleInstrument) {
+        return res.status(404).json({
+            error: 'Instrument not found'
+        });
+    }
+
+    instruments.id = req.body.id;
+    instruments.nome = req.body.nome;
+    instruments.marca = req.body.marca;
+    instruments.prezzo = req.body.prezzo;
+
+    fs.writeFileSync('./db/instrumentsData.js', `module.exports = ${JSON.stringify(instruments, null, 4)}`)
+
+    return res.status(201).json({
+        status: 201,
+        data: instruments,
+        counter: instruments.length
+    });
+
+}
 
 module.exports = {
     index,
     show,
-    store
+    store,
+    update
 }

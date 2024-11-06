@@ -8,4 +8,6 @@ router.get('/:id', instrumentsController.show)
 
 router.post('/', instrumentsController.store)
 
+router.put('/:id', instrumentsController.update)
+
 module.exports = router;

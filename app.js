@@ -12,8 +12,22 @@ app.listen(3000, () => {
 
 })
 
+app.use('/posts', (req, res, next) => {
+    throw new Error('You broke everything!');
+});
+
 app.use('/posts', loggerMiddleware);
 
 app.use('/posts', postsRouter);
 
 app.use(notFoundMiddleware);
+
+app.use((err, req, res, next) => {
+    console.log('Error: ', err.message);
+
+    console.error(err.stack);
+    res.status(500).send({
+        message:'Something went wrong!',
+        error: err.message
+    });
+ });
